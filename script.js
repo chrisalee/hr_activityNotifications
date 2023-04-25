@@ -39,3 +39,23 @@ function activityNotifications(expenditure, d) {
     console.log(notifications);
     return notifications;
 }
+
+//////////////////////////////////////////////////////////////////////
+function activityNotifications(expenditure, d) {
+    let notifications = 0;
+
+    for (let i = d; i < expenditure.length; i++) {
+        let trailingDays = expenditure.slice(i - d, i).sort((a, b) => a - b);
+
+        let medianOfTrailing;
+        d % 2 !== 0 
+            ? medianOfTrailing = trailingDays[Math.floor(trailingDays.length / 2)]
+            : medianOfTrailing = (trailingDays[(trailingDays.length / 2) - 1] + trailingDays[trailingDays.length / 2]) / 2;
+
+        expenditure[i] >= 2 * medianOfTrailing 
+            ? notifications++ 
+            : notifications;
+    }
+
+    return notifications;
+}
